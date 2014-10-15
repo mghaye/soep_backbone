@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/backbone/backbone.js"></script>
+    <script src="bower_components/backbone.localStorage/backbone.localStorage.js"></script>
+
+</head>
+<body>
+<div id="container">
+    <h1>Soepnaam</h1>
+    <input id="new-soep" placeholder="Soepnaam" autofocus name="name">
+    <br>
+    <select id="soep-list"></select>
+    <button class="destroy">remove</button>
+</div>
+
+<script type="text/template" id="item-template">
+    <div class="view">
+        <label><%- name %></label>
+
+    </div>
+</script>
+
+<script type="text/javascript">
+    // Variable that contains all the app components
+    var app = {};
+
+    //Define model
+    app.SoepModel = Backbone.Model.extend({
+
+        defaults: {
+            name: ''
+
+        },
+        destroy: function(){
+            this.model.destroy();
+                                 }
+    });
+
+    //Define collection
+    app.SoepCollection = Backbone.Collection.extend({
+        model: app.SoepModel,
+        localStorage: new Store('SoepCollection')
+    });
+
+    //Collection instance
+    app.soepen = new app.SoepCollection({});
+
+    //Add new soep item to Collection
+    /*app.soepen.create({name:'tomatensoep'});
+    console.log(app.soepen.pluck('name'));*/
+
+    app.SoepView = Backbone.View.extend({
+        tagName: 'option',
+        template: _.template($('#item-template').html()),
+        render: function() {
+            console.log('SoepView: Render');
+            this.$el.html(this.template(this.model.toJSON()));
+            return this;
+        }
+    });
+
+    app.SoepListView = Backbone.View.extend({
+        el: '#container',
+        events: {
+            //'NaamEvent ElementJquery': 'Functie'
+            'keypress #new-soep': 'createToDo'
+        },
+        initialize: function() {
+            console.log('AppView:Initialize');
+            // when new elements are added to the collection render then with addOne
+            app.soepen.on('add', this.addOne, this);
+            //app.soepen.on('reset',this.addAll,this);
+            app.soepen.fetch();// Loads list from local storage
+            this.render();
+
+
+
+        },
+        render: function() {
+            console.log('AppView:Render');
+            //this.$el.html('Hello World');
+        },
+        createToDo: function(event) {
+            if(event.which !== 13 || !$(event.target).val().trim()) {
+                console.log('AppView:CreateToDo:Empty or not Enter');
+                return;
+            }
+
+            console.log('AppView:CreateToDo');
+
+            //Input uitlezen
+            var data = {
+                name: $(event.target).val()
+            };
+
+            //Data aan collectie toevoegen en opslaan
+            app.soepen.create(data);
+            //Input leegmaken
+            $(event.target).val('');
+        },
+        addOne: function(soep) {
+            console.log('AppView:addOne');
+            var view = new app.SoepView({model: soep});
+            console.log('AppView:Prepared');
+            $('#soep-list').append(view.render().el);
+            console.log('AppView:Render Done');
+        },
+        addAll: function(){
+            $('#soep-list').html(''); // clean the todo list
+            app.soepen.each(this.addOne, this);
+        }
+    });
+
+    var soepListView = new app.SoepListView();
+
+
+
+
+</script>
+</body>
+</html>
