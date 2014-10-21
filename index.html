@@ -5,128 +5,87 @@
     <title></title>
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/handlebars/handlebars.js"></script>
     <script src="bower_components/backbone/backbone.js"></script>
     <script src="bower_components/backbone.localStorage/backbone.localStorage.js"></script>
 
 </head>
 <body>
 <div id="container">
-    <h1>Soepnaam</h1>
+<div id="container1" style="float: left; width: 450px">
+    <h3>Soepnaam</h3>
     <input id="new-soep" placeholder="Soepnaam" autofocus name="name">
     <br>
     <select id="soep-list"></select>
     <ul id="soep-ul"></ul>
-</div>
+    <button id="verzendSoepen">Verzend soepen</button>
+    <br><br>
+    <button id="wisSoepen">Wis soepen</button>
 
+
+</div>
+<div id="container2" style="float: left; width: 450px">
+    <label class="text-info"><h3>Kies dag :</h3></label>
+    <br>
+    <input type="date" id="dag" value="dddd/mm/jjjj">
+    <br>
+    <ul id="dag-ul"></ul>
+    <button id="slaDagOp">Sla dag op</button>
+    <br><br>
+    <button id="wisDagen">Wis dagen</button>
+
+
+
+</div>
+<div id="container3" style="float: left;width: 240px" >
+    <button id="haalDagenOp">Haal dagen op</button>
+    <ul id="opgehaaldeDagen"></ul>
+</div>
+</div>
 <script type="text/template" id="item-template">
     <div class="view">
-        <label><%- name %></label>
+        <label><%- naam %></label>
 
     </div>
 </script>
 
-<script type="text/javascript">
-    // Variable that contains all the app components
-    var app = {};
 
-    //Define model
-    app.SoepModel = Backbone.Model.extend({
+<script type="text/x-handlebars-template" id="ul-template">
 
-        defaults: {
-            name: '',
-            completed:false
-
-        },
-        destroy: function(){
-            this.model.destroy();
-                                 }
-    });
-
-    //Define collection
-    app.SoepCollection = Backbone.Collection.extend({
-        model: app.SoepModel,
-        localStorage: new Store('SoepCollection')
-    });
-
-    //Collection instance
-    app.soepen = new app.SoepCollection({});
-
-    //Add new soep item to Collection
-    /*app.soepen.create({name:'tomatensoep'});
-    console.log(app.soepen.pluck('name'));*/
-
-    app.SoepView = Backbone.View.extend({
-        tagName: 'option',
-        template: _.template($('#item-template').html()),
-        render: function() {
-            console.log('SoepView: Render');
-            this.$el.html(this.template(this.model.toJSON()));
-            return this;
-        }
-    });
-
-    app.SoepListView = Backbone.View.extend({
-        el: '#container',
-        events: {
-            //'NaamEvent ElementJquery': 'Functie'
-            'keypress #new-soep': 'createToDo',
-            'change #soep-list': 'addToUl'
-        },
-        initialize: function() {
-            console.log('AppView:Initialize');
-            // when new elements are added to the collection render then with addOne
-            app.soepen.on('add', this.addOne, this);
-            //app.soepen.on('reset',this.addAll,this);
-            app.soepen.fetch();// Loads list from local storage
-            this.render();
-
-
-
-        },
-        render: function() {
-            console.log('AppView:Render');
-            //this.$el.html('Hello World');
-        },
-        createToDo: function(event) {
-            if(event.which !== 13 || !$(event.target).val().trim()) {
-                console.log('AppView:CreateToDo:Empty or not Enter');
-                return;
-            }
-
-            console.log('AppView:CreateToDo');
-
-            //Input uitlezen
-            var data = {
-                name: $(event.target).val()
-            };
-
-            //Data aan collectie toevoegen en opslaan
-            app.soepen.create(data);
-            //Input leegmaken
-            $(event.target).val('');
-        },
-        addOne: function(soep) {
-            console.log('AppView:addOne');
-            var view = new app.SoepView({model: soep});
-            console.log('AppView:Prepared');
-            $('#soep-list').append(view.render().el);
-            console.log('AppView:Render Done');
-        },
-        addAll: function(){
-            $('#soep-list').html(''); // clean the todo list
-            app.soepen.each(this.addOne, this);
-        },
-        addToUl : function(){
-            $('#soep-ul').append('<li>een nieuw soep</li>');
-
-        }
-    });
-
-    var soepListView = new app.SoepListView();
-
-
-
+    <li>
+        {{naam}}
+        <a href="#" id={{naam}} class="klik"><img src="img/delete.png"></a>
+    </li>
 
 </script>
+
+<script type="text/x-handlebars-template" id="dag-template">
+
+    <li>
+        {{datumString}}
+        <ul>
+            <li>
+                {{soep1}}
+            </li>
+            <li>
+                {{soep2}}
+            </li>
+            <li>
+                {{soep3}}
+            </li>
+
+            <li>
+                {{soep4}}
+            </li>
+
+
+        </ul>
+    </li>
+
+</script>
+
+
+
+<script src="js/backbone.js"></script>
 </body>
 </html>
