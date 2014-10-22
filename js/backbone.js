@@ -58,6 +58,7 @@ app.SoepView = Backbone.View.extend({
     template: _.template($('#item-template').html()),
     render: function() {
         console.log('SoepView: Render');
+
         console.log(this.model.toJSON());
         this.$el.html(this.template(this.model.toJSON()));
         return this;
@@ -84,6 +85,13 @@ app.DagView=Backbone.View.extend({
     render: function() {
         console.log('dagView: Render');
         console.log(this.model.toJSON());
+        //De eerste letter van de soepnaam wordt hier naar hoofdletter gezet
+        for(teller=1;teller<5;teller++){
+            var naarHoofdletter=this.model.get('soep'+teller);
+            naarHoofdletter=naarHoofdletter.substr(0,1).toUpperCase()+(naarHoofdletter).substr(1);
+            this.model.set('soep'+teller,naarHoofdletter);
+
+        }
         this.$el.html(this.template(this.model.toJSON()));
         return this;
     }

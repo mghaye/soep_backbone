@@ -1,0 +1,65 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'd:\\nodejs\\node.exe',
+1 verbose cli   'd:\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'bower.handlebars' ]
+2 info using npm@1.4.3
+3 info using node@v0.10.26
+4 verbose cache add [ 'bower.handlebars', null ]
+5 verbose cache add name=undefined spec="bower.handlebars" args=["bower.handlebars",null]
+6 verbose parsed url { protocol: null,
+6 verbose parsed url   slashes: null,
+6 verbose parsed url   auth: null,
+6 verbose parsed url   host: null,
+6 verbose parsed url   port: null,
+6 verbose parsed url   hostname: null,
+6 verbose parsed url   hash: null,
+6 verbose parsed url   search: null,
+6 verbose parsed url   query: null,
+6 verbose parsed url   pathname: 'bower.handlebars',
+6 verbose parsed url   path: 'bower.handlebars',
+6 verbose parsed url   href: 'bower.handlebars' }
+7 silly lockFile 8d74cebf-bower-handlebars bower.handlebars
+8 verbose lock bower.handlebars C:\Users\gebruiker\AppData\Roaming\npm-cache\8d74cebf-bower-handlebars.lock
+9 silly lockFile 8d74cebf-bower-handlebars bower.handlebars
+10 silly lockFile 8d74cebf-bower-handlebars bower.handlebars
+11 verbose addNamed [ 'bower.handlebars', '' ]
+12 verbose addNamed [ null, '*' ]
+13 silly lockFile ccfe47de-bower-handlebars bower.handlebars@
+14 verbose lock bower.handlebars@ C:\Users\gebruiker\AppData\Roaming\npm-cache\ccfe47de-bower-handlebars.lock
+15 silly addNameRange { name: 'bower.handlebars', range: '*', hasData: false }
+16 verbose url raw bower.handlebars
+17 verbose url resolving [ 'https://registry.npmjs.org/', './bower.handlebars' ]
+18 verbose url resolved https://registry.npmjs.org/bower.handlebars
+19 info trying registry request attempt 1 at 15:59:44
+20 http GET https://registry.npmjs.org/bower.handlebars
+21 http 404 https://registry.npmjs.org/bower.handlebars
+22 silly registry.get cb [ 404,
+22 silly registry.get   { date: 'Thu, 16 Oct 2014 13:59:49 GMT',
+22 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+22 silly registry.get     'content-type': 'application/json',
+22 silly registry.get     'cache-control': 'max-age=0',
+22 silly registry.get     'content-length': '52',
+22 silly registry.get     'accept-ranges': 'bytes',
+22 silly registry.get     via: '1.1 varnish',
+22 silly registry.get     age: '0',
+22 silly registry.get     'x-served-by': 'cache-ams4127-AMS',
+22 silly registry.get     'x-cache': 'MISS',
+22 silly registry.get     'x-cache-hits': '0',
+22 silly registry.get     'x-timer': 'S1413467988.679392,VS0,VE640',
+22 silly registry.get     'keep-alive': 'timeout=10, max=50',
+22 silly registry.get     connection: 'Keep-Alive' } ]
+23 silly lockFile ccfe47de-bower-handlebars bower.handlebars@
+24 silly lockFile ccfe47de-bower-handlebars bower.handlebars@
+25 error 404 'bower.handlebars' is not in the npm registry.
+25 error 404 You should bug the author to publish it
+25 error 404
+25 error 404 Note that you can also install from a
+25 error 404 tarball, folder, or http url, or git url.
+26 error System Windows_NT 6.1.7601
+27 error command "d:\\nodejs\\node.exe" "d:\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "bower.handlebars"
+28 error cwd c:\backbone_soep\soep_backbone
+29 error node -v v0.10.26
+30 error npm -v 1.4.3
+31 error code E404
+32 verbose exit [ 1, true ]
