@@ -31,7 +31,7 @@ console.log(dag.get('soep1'));
 //Define collection
 app.SoepCollection = Backbone.Collection.extend({
     model: app.SoepModel,
-    localStorage: new Store('SoepCollection')
+    url:'/backbone_soep/api/soepprogramma.php'
 
 });
 app.DagCollection=Backbone.Collection.extend({
@@ -169,6 +169,7 @@ app.SoepListView = Backbone.View.extend({
 
         //Data aan collectie toevoegen en opslaan
         app.soepen.create(data);
+
         //Input leegmaken
         $(event.target).val('');
         app.soepen.each(function(soep){console.log(soep.get('naam'))});
